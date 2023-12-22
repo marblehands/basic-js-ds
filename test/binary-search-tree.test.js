@@ -89,6 +89,7 @@ describe('Binary search tree', () => {
       tree.add(8);
       tree.add(31);
       tree.add(1);
+      console.debug(tree)
       assert.strictEqual(tree.has(54), true);
       assert.strictEqual(tree.has(8), true);
       assert.strictEqual(tree.has(7), false);

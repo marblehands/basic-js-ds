@@ -16,30 +16,45 @@ class BinarySearchTree {
   }
 
   add(data) {
-    const newNode = new Node(data);
 
     this.rootNode = addNode(this.rootNode, data);
 
     function addNode(node, data) {
       if (!node) {
-        return newNode;
+        return new Node(data);
       }
-      if (node.value === data) {
-        return newNode;
+      if (node.data === data) {
+        return node;
       }
-      if (data < node.value) {
+      if (data < node.data) {
         node.left = addNode(node.left, data);
-      }
-      if (data > node.value) {
+      } 
+      if (data > node.data) {
         node.right = addNode(node.right, data);
       }
       return node;
     }
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+    let isNodeExist = searchNode(this.rootNode, data);
+
+    function searchNode(node, data) {
+      if (!node) {
+        return false;
+      }
+      if (node.data === data) {
+        return true;
+      } 
+      if (data < node.data) {
+        return searchNode(node.left, data);
+      } 
+      if (data > node.data) {
+        return searchNode(node.right, data);
+      }
+    }
+
+    return isNodeExist;
   }
 
   find(/* data */) {
