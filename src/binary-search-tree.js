@@ -75,20 +75,87 @@ class BinarySearchTree {
     return result;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(data) {
+    this.rootNode = removeNode(this.rootNode, data);
+
+    function removeNode(node, data) {
+      if (!node) {
+        return null;
+      }
+
+      if (node.data === data) {
+        if (!node.left && !node.right) {
+          return null;
+        }
+        if (!node.left && node.right) {
+          node = node.right;
+          return node;
+        }
+        if (node.left && !node.right) {
+          node = node.left;
+          return node;
+        }
+        if (node.left && node.right) {
+          let minNode = node.right;
+          while (minNode.left) {
+            minNode = minNode.left;
+          }
+          node.data = minNode.data;
+
+          node.right = removeNode(node.right, minNode.data);
+
+          return node;
+        }
+      }
+
+      if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+      }
+
+      if (data > node.data) {
+        node.right = removeNode(node.right, data);
+        return node;
+      }
+    }
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const isMin = this.rootNode;
+    let result = searchMin(isMin);
+
+    function searchMin(node) {
+      if (!node) {
+        return null;
+      }
+
+      let min = node;
+      while (min.left) {
+        min = min.left
+      }
+
+      return min.data
+    }
+    
+    return result;
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    let isMax = this.rootNode;
+    let result = searchMax(isMax);
+
+    function searchMax(node) {
+      if (!node) {
+        return null;
+      }
+      let max = node;
+      while (max.right) {
+        max = max.right;
+      }
+      return max.data;
+    }
+    return result;
+}
 }
 
 module.exports = {
